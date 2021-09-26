@@ -1,0 +1,1 @@
+(ns magical-music-machine.adapters.out.sonic-pi-osc)
