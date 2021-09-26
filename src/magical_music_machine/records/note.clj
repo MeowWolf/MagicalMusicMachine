@@ -1,10 +1,10 @@
-(ns magical-music-machine.note
+(ns magical-music-machine.records.note
   (:require [magical-music-machine.helpers :refer [numeric?]]))
 
 (defrecord Note [frequency amplitude])
 
 (defn new-note
-  "Constructs a new Event.
+  "Constructs a new note.
    Raw incoming data must be converted to notes before further processing"
   [{:keys [frequency amplitude]}]
   {:pre [(numeric? frequency)

@@ -1,24 +1,25 @@
 (ns magical-music-machine.adapters.in.node-red-osc
   (:require [clojure.core.async :refer [>!!]]
             [clojure.pprint :refer [pprint]]
+            [magical-music-machine.records.note :refer [new-note]]
             [overtone.osc :refer [osc-server osc-handle]]
-            [magical-music-machine.protocols :refer [Consumer Note event->Note]]
+            [magical-music-machine.protocols :refer [Consumer Event event->note]]
             [magical-music-machine.helpers :refer [note-by-label json->map]]))
 
-(defrecord NodeRedOscEvent [msg note-constructor]
-  Note
-  (event->Note [_]
+(defrecord NodeRedOscEvent [msg]
+  Event
+  (event->note [_]
     (let [{:keys [volume note]} (json->map (first (:args msg)))]
-      (note-constructor {:frequency (:frequency (note-by-label note))
-                         :amplitude  volume}))))
+      (new-note {:frequency (:frequency (note-by-label note))
+                 :amplitude  volume}))))
 
 (defrecord NodeRedOsc [server address]
   Consumer
-  (handle-event [_ ch note-constructor]
+  (handle-event [_ ch]
     (osc-handle
      server
      address
-     (fn [msg] (>!! ch (event->Note (->NodeRedOscEvent msg note-constructor)))))))
+     (fn [msg] (>!! ch (event->note (->NodeRedOscEvent msg)))))))
 
 (def port 4242)
 (def address "/test")

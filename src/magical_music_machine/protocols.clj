@@ -1,7 +1,10 @@
 (ns magical-music-machine.protocols)
 
-(defprotocol Note
-  (event->Note [event]))
+(defprotocol Event
+  (event->note [event]))
 
 (defprotocol Consumer
-  (handle-event [handler in-chan note-constructor]))
+  (handle-event [handler in-chan]))
+
+(defprotocol Publisher
+  (send-message [sender note]))

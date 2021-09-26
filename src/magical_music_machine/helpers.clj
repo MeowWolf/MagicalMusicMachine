@@ -1,7 +1,6 @@
 (ns magical-music-machine.helpers
   (:require [clojure.data.json :as json]
-            [clojure.pprint :as pp
-             :refer [pprint]]
+            [clojure.pprint :refer [pprint]]
             [magical-music-machine.constants :refer [notes]]))
 
 (defn abs [x] (if (neg? x) (- x) x))
@@ -20,7 +19,6 @@
   (some (fn [note]
           (when (some #(= label  %) (:labels note))
             note)) notes))
-;; (note-by-label "A3")
 
 (defn note-by-midi-note
   "Return a note map item by midi note number.
@@ -28,7 +26,6 @@
   [mn]
   (some #(when (= mn (:midi-note %))
            %) notes))
-;; (note-by-midi-note 16)
 
 (defn note-by-wavelength
   "Return a note map item by wavelength value.
@@ -44,7 +41,6 @@
                         (reduced a)
                         (reduced c)))))
           notes))
-;; (note-by-wavelength 90)
 
 (defn note-by-frequency
   "Return a note map item by frequency value.
@@ -60,4 +56,3 @@
                         (reduced a)
                         (reduced c)))))
           notes))
-;; (note-by-frequency 330)
