@@ -6,11 +6,19 @@
 (defn abs [x] (if (neg? x) (- x) x))
 
 (defn json->map [j]
-  (json/read-str j :key-fn keyword))
+  (try
+    (json/read-str j :key-fn keyword)
+    (catch Exception e (str "could not parse json: " (.getMessage e)))))
 
+;; TODO: This function may be unnecessary
 (defn numeric? [v]
-  (or (number? v)
-      (every? #(Character/isDigit %) v)))
+  (try
+    (cond (true? v) false
+          (false? v) false
+          (number? v) true
+          (nil? (re-matches #"^-?\d+|-?\d+\.\d+$" v)) false
+          :else true)
+    (catch Exception _ false)))
 
 (defn note-by-label
   "Return a note map item by note label.
@@ -31,28 +39,32 @@
   "Return a note map item by wavelength value.
    If value given is not an exact match the closest existing value is chosen"
   [wl]
-  (reduce (fn [a c]
-            (let [acc (:wavelength a)
-                  cur (:wavelength c)]
-              (cond
-                (> cur wl) c
-                (= cur wl) (reduced c)
-                :else (if (< (abs (- wl acc)) (abs (- cur wl)))
-                        (reduced a)
-                        (reduced c)))))
-          notes))
+  (if (not (number? wl))
+    nil
+    (reduce (fn [a c]
+              (let [acc (:wavelength a)
+                    cur (:wavelength c)]
+                (cond
+                  (> cur wl) c
+                  (= cur wl) (reduced c)
+                  :else (if (< (abs (- wl acc)) (abs (- cur wl)))
+                          (reduced a)
+                          (reduced c)))))
+            notes)))
 
 (defn note-by-frequency
   "Return a note map item by frequency value.
    If value given is not an exact match the closest existing value is chosen"
   [freq]
-  (reduce (fn [a c]
-            (let [acc (:frequency a)
-                  cur (:frequency c)]
-              (cond
-                (< cur freq) c
-                (= cur freq) (reduced c)
-                :else (if (< (abs (- freq acc)) (abs (- cur freq)))
-                        (reduced a)
-                        (reduced c)))))
-          notes))
+  (if (not (number? freq))
+    nil
+    (reduce (fn [a c]
+              (let [acc (:frequency a)
+                    cur (:frequency c)]
+                (cond
+                  (< cur freq) c
+                  (= cur freq) (reduced c)
+                  :else (if (< (abs (- freq acc)) (abs (- cur freq)))
+                          (reduced a)
+                          (reduced c)))))
+            notes)))
