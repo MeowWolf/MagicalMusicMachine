@@ -39,14 +39,14 @@
       '("nine") false
       "12.33.44" false))
 
-  (testing "note-by-label"
-    (are [x] (not= (note-by-label x) nil)
+  (testing "pitch-by-label"
+    (are [x] (not= (pitch-by-label x) nil)
       "C4"
       "D#7"
       "F#2"
       "B5"
       "Bb5")
-    (are [x] (= (note-by-label x) nil)
+    (are [x] (= (pitch-by-label x) nil)
       "no"
       88
       false
@@ -55,15 +55,15 @@
       '("C#4")
       [9 9]))
 
-  (testing "note-by-midi-note"
-    (are [x] (not= (note-by-midi-note x) nil)
+  (testing "pitch-by-midi-note"
+    (are [x] (not= (pitch-by-midi-note x) nil)
       12
       21
       44
       73
       99
       119)
-    (are [x] (= (note-by-midi-note x) nil)
+    (are [x] (= (pitch-by-midi-note x) nil)
       11
       "hello"
       false
@@ -72,8 +72,8 @@
       120
       44.44))
 
-  (testing "note-by-wavelength"
-    (are [x] (not= (note-by-wavelength x) nil)
+  (testing "pitch-by-wavelength"
+    (are [x] (not= (pitch-by-wavelength x) nil)
       1991.46
       1991.47
       1991.48
@@ -81,7 +81,7 @@
       888
       0
       100000)
-    (are [x] (= (note-by-wavelength x) nil)
+    (are [x] (= (pitch-by-wavelength x) nil)
       "1991.46"
       "no"
       false
@@ -89,8 +89,8 @@
       '("hi")
       ["okay" 44]))
 
-  (testing "note-by-frequency"
-    (are [x] (not= (note-by-frequency x) nil)
+  (testing "pitch-by-frequency"
+    (are [x] (not= (pitch-by-frequency x) nil)
       20.59
       20.60
       20.61
@@ -99,7 +99,7 @@
       0
       440
       100000)
-    (are [x] (= (note-by-frequency x) nil)
+    (are [x] (= (pitch-by-frequency x) nil)
       "20.60"
       "no"
       false
