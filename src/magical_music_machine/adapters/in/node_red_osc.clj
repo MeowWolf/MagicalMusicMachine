@@ -7,12 +7,17 @@
             [magical-music-machine.protocols :refer [Consumer Event event->note]]
             [magical-music-machine.helpers :refer [pitch-by-label json->map]]))
 
-(defrecord NodeRedOscEvent [msg]
+(defrecord NodeRedOscEvent [msg instruments]
   Event
   (event->note [_]
-    (let [{:keys [volume note]} (json->map (first (:args msg)))]
+    (let [topic (first (:args msg))
+          {:keys [note]} (json->map (second (:args msg)))]
       (new-note {:frequency (:frequency (pitch-by-label note))
-                 :instrument (new-instrument {})}))))
+                 :instrument (or (->> topic
+                                      (int)
+                                      (find @instruments)
+                                      (second))
+                                 (new-instrument {}))}))))
 
 (defrecord NodeRedOsc [server address]
   Consumer
@@ -22,11 +27,12 @@
      address
      (fn [msg]
        (println)
+       (println msg)
        (println (str "Instruments: " @instruments))
-       (>!! ch (event->note (->NodeRedOscEvent msg)))))))
+       (>!! ch (event->note (->NodeRedOscEvent msg instruments)))))))
 
 (def port 4242)
-(def address "/test")
+(def address "/notes")
 (def server (osc-server port))
 (def node-red-osc (->NodeRedOsc server address))
 

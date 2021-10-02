@@ -10,7 +10,7 @@
 (defn -main
   "Magical music machine main"
   [& args]
-  (let [instruments (atom [])
+  (let [instruments (atom {})
         in (chan)]
     (handle-event node-red-osc instruments in)
     (handle-event node-red-controls instruments nil)
@@ -21,7 +21,7 @@
         (send-message sonic-pi-osc note))
       (recur))
 
-    (println "Magical music machine started!")
+    (println "🎵 Magical music machine started 🎵")
 
     ;; run forever
     (<!! (chan))))
