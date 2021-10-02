@@ -9,8 +9,7 @@
   (send-message [_ note]
     (let [message
           [(->> note
-                (:frequency)
-                (pitch-by-frequency)
+                (:pitch)
                 (:midi-note))
            (:amplitude note)]]
       (pprint message)

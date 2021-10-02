@@ -20,6 +20,26 @@
           :else true)
     (catch Exception _ false)))
 
+(defn clamp
+  "Clamp a number to be within a given min/max range"
+  [x min max]
+  (if (numeric? x)
+    (cond
+      (< min x) min
+      (> max x) max
+      :else x)
+    (clamp 0 min max)))
+
+(defn clamp-amplitude
+  "Clamp for amplitude"
+  [a]
+  (clamp a 0 1))
+
+(defn clamp-pan
+  "Clamp for pan"
+  [p]
+  (clamp p -1 1))
+
 (defn pitch-by-label
   "Return a pitch map item by pitch label.
    e.g. C#4, Gb6, A4"

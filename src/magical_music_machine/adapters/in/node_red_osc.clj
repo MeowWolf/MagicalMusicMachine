@@ -15,11 +15,14 @@
 
 (defrecord NodeRedOsc [server address]
   Consumer
-  (handle-event [_ ch]
+  (handle-event [_ instruments ch]
     (osc-handle
      server
      address
-     (fn [msg] (>!! ch (event->note (->NodeRedOscEvent msg)))))))
+     (fn [msg]
+       (println)
+       (println (str "Instruments: " @instruments))
+       (>!! ch (event->note (->NodeRedOscEvent msg)))))))
 
 (def port 4242)
 (def address "/test")
