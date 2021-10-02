@@ -11,7 +11,8 @@
           [(->> note
                 (:pitch)
                 (:midi-note))
-           (:amplitude note)]]
+           (get-in note [:instrument :amplitude])]]
+
       (pprint message)
       (apply osc-send client address message))))
 

@@ -17,6 +17,7 @@
 
     (go-loop []
       (let [note (<! in)]
+        (pprint note)
         (send-message sonic-pi-osc note))
       (recur))
 
