@@ -1,7 +1,6 @@
 (ns magical-music-machine.adapters.out.sonic-pi-osc
   (:require [overtone.osc :refer [osc-client osc-send]]
             [clojure.pprint :as pp :refer [pprint]]
-            [magical-music-machine.helpers :refer [pitch-by-frequency]]
             [magical-music-machine.protocols :refer [Publisher]]))
 
 (defrecord SonicPiOsc [client address]
