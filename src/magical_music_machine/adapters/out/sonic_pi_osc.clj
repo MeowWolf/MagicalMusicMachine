@@ -7,13 +7,15 @@
   Publisher
   (send-message [_ note]
     (let [message
-          [(get-in note [:instrument :label])
+          [(or (get-in note [:instrument :label])
+               "sine")
            (->> note
                 (:pitch)
                 (:midi-note))
            (get-in note [:instrument :amplitude])
            (get-in note [:instrument :pan])]]
 
+      (println "Message:")
       (pprint message)
       (apply osc-send client address message))))
 
