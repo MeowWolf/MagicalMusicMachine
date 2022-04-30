@@ -1,8 +1,8 @@
-(ns magical-music-machine.tonal_structures
+(ns mmm.tonal_structures
   (:require [clojure.pprint :refer [pprint]]
             [clojure.string :as str]
-            [magical-music-machine.helpers :refer [pitch-by-label]]
-            [magical-music-machine.constants :refer [pitches]]))
+            [mmm.helpers :refer [pitch-by-label]]
+            [mmm.constants :refer [pitches]]))
 
 (def lowest 12) ;; lowest midi note
 

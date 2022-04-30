@@ -1,9 +1,9 @@
-(ns magical-music-machine.helpers
+(ns mmm.helpers
   (:require [clojure.data.json :as json]
             [clojure.pprint :refer [pprint]]
-            [magical-music-machine.constants :refer [pitches]]))
+            [mmm.constants :refer [pitches]]))
 
-;; (defn abs [x] (if (neg? x) (- x) x))
+(defn abs [x] (if (neg? x) (- x) x))
 
 (defn json->map [j]
   (try

@@ -1,8 +1,8 @@
-(ns magical-music-machine.helpers-test
+(ns mmm.helpers-test
   (:require [clojure.test :refer :all]
             [clojure.string :refer [includes?]]
             [clojure.pprint :refer [pprint]]
-            [magical-music-machine.helpers :refer :all]))
+            [mmm.helpers :refer :all]))
 
 (deftest helpers
   (testing "abs"

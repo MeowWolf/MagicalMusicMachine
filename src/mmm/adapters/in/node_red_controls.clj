@@ -1,8 +1,8 @@
-(ns magical-music-machine.adapters.in.node-red-controls
+(ns mmm.adapters.in.node-red-controls
   (:require [clojure.pprint :refer [pprint]]
             [overtone.osc :refer [osc-server osc-handle]]
-            [magical-music-machine.helpers :refer [json->map]]
-            [magical-music-machine.protocols :refer [Consumer]]))
+            [mmm.helpers :refer [json->map]]
+            [mmm.protocols :refer [Consumer]]))
 
 (defrecord NodeRedControls [server address]
   Consumer

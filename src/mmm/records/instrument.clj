@@ -1,5 +1,5 @@
-(ns magical-music-machine.records.instrument
-  (:require [magical-music-machine.helpers :refer [clamp-amplitude
+(ns mmm.records.instrument
+  (:require [mmm.helpers :refer [clamp-amplitude
                                                    clamp-pan
                                                    numeric?]]))
 
@@ -56,5 +56,3 @@
                   sustain-level
                   release
                   effects)))
-
-

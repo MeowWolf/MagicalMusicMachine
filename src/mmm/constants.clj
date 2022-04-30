@@ -1,4 +1,4 @@
-(ns magical-music-machine.constants)
+(ns mmm.constants)
 
 (def pitches [{:labels ["C0"]
                :frequency 16.35

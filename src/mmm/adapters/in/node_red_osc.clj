@@ -1,11 +1,11 @@
-(ns magical-music-machine.adapters.in.node-red-osc
+(ns mmm.adapters.in.node-red-osc
   (:require [clojure.core.async :refer [>!!]]
             [clojure.pprint :refer [pprint]]
-            [magical-music-machine.records.note :refer [new-note]]
-            [magical-music-machine.records.instrument :refer [new-instrument]]
+            [mmm.records.note :refer [new-note]]
+            [mmm.records.instrument :refer [new-instrument]]
             [overtone.osc :refer [osc-server osc-handle]]
-            [magical-music-machine.protocols :refer [Consumer Event event->note]]
-            [magical-music-machine.helpers :refer [pitch-by-label json->map]]))
+            [mmm.protocols :refer [Consumer Event event->note]]
+            [mmm.helpers :refer [pitch-by-label json->map]]))
 
 (defrecord NodeRedOscEvent [msg instruments]
   Event
@@ -35,5 +35,3 @@
 (def address "/notes")
 (def server (osc-server port))
 (def node-red-osc (->NodeRedOsc server address))
-
-

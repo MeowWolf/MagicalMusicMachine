@@ -1,5 +1,5 @@
-(ns magical-music-machine.records.note
-  (:require [magical-music-machine.helpers :refer [pitch-by-frequency
+(ns mmm.records.note
+  (:require [mmm.helpers :refer [pitch-by-frequency
                                                    pitch-by-label
                                                    pitch-by-midi-note
                                                    pitch-by-wavelength]]))
@@ -22,4 +22,3 @@
 
     (->Note pitch
             instrument)))
-

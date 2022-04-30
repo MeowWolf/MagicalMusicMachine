@@ -9,7 +9,7 @@
                  [org.clojure/core.async "1.3.618"]
                  [org.clojure/clojure "1.10.1"]]
   :plugins [[lein-cloverage "1.2.2"]]
-  :main ^:skip-aot magical-music-machine.core
+  :main ^:skip-aot mmm.core
   :target-path "target/%s"
   :aliases {:dev {:extra-paths ["test"]}}
   :profiles {:uberjar {:aot :all

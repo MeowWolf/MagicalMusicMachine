@@ -1,4 +1,4 @@
-(ns magical-music-machine.protocols)
+(ns mmm.protocols)
 
 (defprotocol Event
   (event->note [event]))
