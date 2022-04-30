@@ -39,7 +39,7 @@
       '("nine") false
       "12.33.44" false))
 
-  (testing "pitch-by-label"
+  (testing "pitch-by-label-test"
     (are [x] (not= (pitch-by-label x) nil)
       "C4"
       "D#7"

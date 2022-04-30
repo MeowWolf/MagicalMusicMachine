@@ -3,6 +3,14 @@
                                                    clamp-pan
                                                    numeric?]]))
 
+(defn new-tonality-rules [key
+                          tonal-structure
+                          range
+                          num-simultaneous-events
+                          arpeggio-interval
+                          motion])
+
+;; TODO: need to add mute and solo
 (defrecord Instrument [label
                        note-identifier
                        pan
