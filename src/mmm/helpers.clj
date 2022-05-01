@@ -88,3 +88,11 @@
                           (reduced a)
                           (reduced c)))))
             pitches)))
+
+(defn list-from-middle-of-list
+  "Return a sub-list of length len from the middle of list"
+  [len list]
+  (let [orig-len (count list)]
+    (if (>= len orig-len)
+      list
+      (take len (drop (/ (- orig-len len) 2) list)))))

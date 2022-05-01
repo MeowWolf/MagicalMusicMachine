@@ -1,22 +1,28 @@
 (ns mmm.adapters.in.node-red-osc
   (:require [clojure.core.async :refer [>!!]]
-            [clojure.pprint :refer [pprint]]
             [mmm.records.note :refer [new-note]]
             [mmm.records.instrument :refer [new-instrument]]
             [overtone.osc :refer [osc-server osc-handle]]
             [mmm.protocols :refer [Consumer Event event->note]]
-            [mmm.helpers :refer [pitch-by-label json->map]]))
+            [mmm.tonal-structures :refer [major-scale minor-scale minor-pentatonic-scale]]
+            [mmm.helpers :refer [pitch-by-midi-note list-from-middle-of-list]]))
 
 (defrecord NodeRedOscEvent [msg instruments]
   Event
   (event->note [_]
     (let [topic (first (:args msg))
-          {:keys [note]} (json->map (second (:args msg)))]
-      (new-note {:frequency (:frequency (pitch-by-label note))
-                 :instrument (or (->> topic
-                                      (int)
-                                      (find @instruments)
-                                      (second))
+          instrument (->> topic
+                          (int)
+                          (find @instruments)
+                          (second))
+          {:keys [scale root]} instrument
+          notes (cond (= scale "major") (major-scale root)
+                      (= scale "minor") (minor-scale root)
+                      (= scale "pentatonic") (minor-pentatonic-scale root)
+                      :else (major-scale "A"))
+          note (:midi-note (rand-nth (list-from-middle-of-list 16 notes)))]
+      (new-note {:frequency (:frequency (pitch-by-midi-note note))
+                 :instrument (or instrument
                                  (new-instrument {}))}))))
 
 (defrecord NodeRedOsc [server address]
@@ -26,9 +32,6 @@
      server
      address
      (fn [msg]
-       (println)
-       (println msg)
-       (println (str "Instruments: " @instruments))
        (>!! ch (event->note (->NodeRedOscEvent msg instruments)))))))
 
 (def port 4242)

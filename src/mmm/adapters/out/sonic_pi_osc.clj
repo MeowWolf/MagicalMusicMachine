@@ -1,6 +1,6 @@
 (ns mmm.adapters.out.sonic-pi-osc
   (:require [overtone.osc :refer [osc-client osc-send]]
-            [clojure.pprint :as pp :refer [pprint]]
+            [clojure.pprint :refer [pprint]]
             [mmm.protocols :refer [Publisher]]))
 
 (defrecord SonicPiOsc [client address]
@@ -9,14 +9,17 @@
     (let [message
           [(or (get-in note [:instrument :label])
                "sine")
-           (->> note
-                (:pitch)
-                (:midi-note))
+           (or (->> note
+                    (:pitch)
+                    (:midi-note))
+               60)
            (get-in note [:instrument :amplitude])
            (get-in note [:instrument :pan])]]
 
-      (println "Message:")
+      (println "sonic-pi-osc message:")
       (pprint message)
+      (println)
+
       (apply osc-send client address message))))
 
 (def port 4560)

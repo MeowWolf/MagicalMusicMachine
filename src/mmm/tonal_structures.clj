@@ -1,4 +1,4 @@
-(ns mmm.tonal_structures
+(ns mmm.tonal-structures
   (:require [clojure.pprint :refer [pprint]]
             [clojure.string :as str]
             [mmm.helpers :refer [pitch-by-label]]
@@ -44,7 +44,7 @@
   (if (number? pitch)
     pitch
     (as-> pitch n
-      (str/upper-case n)
+      (str/capitalize n)
       (str n "1")
       (pitch-by-label n)
       (:midi-note n))))

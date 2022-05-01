@@ -1,6 +1,5 @@
 (ns mmm.adapters.in.node-red-controls
-  (:require [clojure.pprint :refer [pprint]]
-            [overtone.osc :refer [osc-server osc-handle]]
+  (:require [overtone.osc :refer [osc-server osc-handle]]
             [mmm.helpers :refer [json->map]]
             [mmm.protocols :refer [Consumer]]))
 
